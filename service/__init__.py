@@ -8,6 +8,9 @@ import sys
 from flask import Flask
 from service import config
 from service.common import log_handlers
+from flask_talisman import Talisman
+
+
 
 # Create Flask application
 app = Flask(__name__)
@@ -35,3 +38,6 @@ except Exception as error:  # pylint: disable=broad-except
     sys.exit(4)
 
 app.logger.info("Service initialized!")
+
+#create an instance of the Talisman class called talisman passing in the Flask app to the class constructor.
+talisman = Talisman(app)
