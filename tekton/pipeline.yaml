@@ -22,7 +22,19 @@ spec:
           workspace: pipeline-workspace          
       taskRef:
         name: cleanup
-
+    - name: tests
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace          
+      taskRef:
+        name: nose
+      params:
+        - name: database_uri
+          value: sqlite:///test.db
+        - name: args
+          value: "-v --with-spec --spec-color"
+      runAfter:
+        - clone
     - name: clone
       workspaces:
         - name: output
@@ -34,4 +46,4 @@ spec:
         value: $(params.repo-url)
       - name: revision
         value: $(params.branch)
-      r
+      
